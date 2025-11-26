@@ -17,7 +17,7 @@ to setup
   ask patches with [ pycor < 2 ] [ set pcolor (gray - 2)]
   
   ; for testing purposes, make one tree turtle
-  make-tree
+  ; make-tree
   
   ; ensure ticks start properly (at zero)
   reset-ticks
@@ -56,13 +56,27 @@ to make-tree
   ]
 end
 
+to erode
+  ask patches [
+    if pcolor = (blue + 1) [
+        ask neighbors4 [
+            if pcolor = (gray - 2) [
+              if random 10000 < 1 [
+                set pcolor (yellow + 4) 
+              ]
+            ]
+        ]
+    ]
+]
+end
+
 
 to go
+  erode
   tick
-  ask turtles [ fd 1 ]
 end]]></code>
   <widgets>
-    <view x="365" wrappingAllowedX="true" y="15" frameRate="30.0" minPycor="0" height="905" showTickCounter="true" patchSize="5.0" fontSize="10" wrappingAllowedY="false" width="1606" tickCounterLabel="ticks" maxPycor="179" updateMode="0" maxPxcor="319" minPxcor="0"></view>
+    <view x="365" wrappingAllowedX="false" y="15" frameRate="30.0" minPycor="0" height="905" showTickCounter="true" patchSize="5.0" fontSize="10" wrappingAllowedY="false" width="1606" tickCounterLabel="ticks" maxPycor="179" updateMode="0" maxPxcor="319" minPxcor="0"></view>
     <button x="255" y="65" height="40" disableUntilTicks="false" forever="true" kind="Observer" width="101" display="run this shit">go</button>
     <button x="300" y="15" height="40" disableUntilTicks="false" forever="false" kind="Observer" width="55">setup</button>
   </widgets>
